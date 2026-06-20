@@ -1,5 +1,3 @@
-# syntax=docker/dockerfile:1
-
 # ---- Dependencies ----
 FROM node:22-alpine AS deps
 WORKDIR /app
@@ -16,6 +14,9 @@ RUN npm run build
 # ---- Runtime ----
 FROM node:22-alpine AS runner
 WORKDIR /app
+
+# Links the published GHCR package to the GitHub repo.
+LABEL org.opencontainers.image.source="https://github.com/craigrbailey/Server-Status"
 
 ENV NODE_ENV=production
 ENV PORT=3000
